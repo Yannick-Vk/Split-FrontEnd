@@ -3,6 +3,8 @@ import {reactive} from "vue";
 import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
 
+import type {LoginUser} from '../types.ts'
+
 const schema = z.object({
   email: z.email('Invalid email'),
   password: z.string("Password cannot be empty").min(8, 'Must be at least 8 characters')
@@ -18,7 +20,11 @@ const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   toast.add({title: 'Success', description: 'Login info sent', color: 'success'})
-  console.log(event.data)
+  const user: LoginUser = {
+    email: event.data.email,
+    password: event.data.password,
+  };
+  console.log(user)
 }
 </script>
 
