@@ -4,7 +4,6 @@ import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
 
 import type {LoginUser} from '../types.ts'
-import {Login} from "../LoginService.ts";
 
 const schema = z.object({
   username: z.string('Username/Email cannot be empty').trim().min(1, "Username/Email cannot be empty"),
@@ -37,7 +36,6 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     toast.add({title: 'Login failed', description: `Failed to login, reason: ${response.statusText}`, color: 'error'})
     return;
   }
-  await Login(user);
 
   toast.add({title: 'Success', description: 'Login info sent', color: 'success'})
 }
