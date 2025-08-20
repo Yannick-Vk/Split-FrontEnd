@@ -48,14 +48,14 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <UFormField label="Email" name="email">
         <UButtonGroup>
           <UInput v-model="state.email" placeholder="Email" type="email"/>
-          <UBadge color="neutral" variant="subtle" icon="lucide:at-sign"/>
+          <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:at-sign"/>
         </UButtonGroup>
       </UFormField>
 
       <UFormField label="Username" name="username">
         <UButtonGroup>
           <UInput v-model="state.username" placeholder="Username"/>
-          <UBadge color="neutral" variant="subtle" icon="lucide:circle-user-round"/>
+          <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:circle-user-round"/>
         </UButtonGroup>
       </UFormField>
 

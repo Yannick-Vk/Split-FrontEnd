@@ -35,7 +35,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     </template>
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormField label="Email" name="email">
-        <UInput v-model="state.email" placeholder="Email" type="email" trailing-icon="i-lucide-at-sign"/>
+        <UButtonGroup>
+          <UInput v-model="state.email" placeholder="Email" type="email"/>
+          <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:at-sign"/>
+        </UButtonGroup>
       </UFormField>
 
       <password v-model="state.password" placeholder="Password" label="Password" name="password"/>
