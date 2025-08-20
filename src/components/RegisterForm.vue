@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import {reactive, ref} from "vue";
+import {reactive} from "vue";
 import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
 
@@ -16,11 +16,10 @@ type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({
   email: undefined,
-  password: undefined
+  username: undefined,
+  password: undefined,
+  confirmPassword: undefined,
 })
-
-const showPassword = ref(false)
-const showConfirmPassword = ref(false)
 
 const toast = useToast()
 
@@ -38,7 +37,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormField label="Email" name="email">
         <UButtonGroup>
-          <UInput v-model="state.email" placeholder="Email"/>
+          <UInput v-model="state.email" placeholder="Email" type="email"/>
           <UBadge color="neutral" variant="subtle" icon="lucide:at-sign"/>
         </UButtonGroup>
       </UFormField>
@@ -50,43 +49,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         </UButtonGroup>
       </UFormField>
 
-      <UFormField label="Password" name="password">
-        <UButtonGroup>
-          <UInput v-model="state.password" placeholder="Password"
-                  :type="showPassword ? 'text' : 'password'"
-                  :ui="{ trailing: 'pe-1' }">
-          </UInput>
-          <UButton
-              color="primary"
-              variant="subtle"
-              size="sm"
-              :icon="showPassword ? 'i-lucide-eye-off' : 'i-lucide-eye'"
-              :aria-label="showPassword ? 'Hide password' : 'Show password'"
-              :aria-pressed="showPassword"
-              aria-controls="password"
-              @click="showPassword = !showPassword"
-          />
-        </UButtonGroup>
-      </UFormField>
-
-      <UFormField label="Confirm Password" name="confirmPassword">
-        <UButtonGroup>
-          <UInput v-model="state.confirmPassword" placeholder="Confirm Password"
-                  :type="showConfirmPassword ? 'text' : 'password'"
-                  :ui="{ trailing: 'pe-1' }">
-          </UInput>
-          <UButton
-              color="primary"
-              variant="subtle"
-              size="sm"
-              :icon="showConfirmPassword ? 'i-lucide-eye-off' : 'i-lucide-eye'"
-              :aria-label="showConfirmPassword ? 'Hide password' : 'Show password'"
-              :aria-pressed="showConfirmPassword"
-              aria-controls="confirmPassword"
-              @click="showConfirmPassword = !showConfirmPassword"
-          />
-        </UButtonGroup>
-      </UFormField>
+      <password v-model="state.password" placeholder="Password" label="Password" name="password"/>
+      <password v-model="state.confirmPassword" placeholder="Confirm password" label="Confirm Password"
+                name="confirmPassword"/>
 
       <UButton type="submit" trailing-icon="lucide:log-in" size="md" color="primary" variant="solid">Register</UButton>
     </UForm>

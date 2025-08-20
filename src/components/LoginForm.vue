@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import {reactive, ref} from "vue";
+import {reactive} from "vue";
 import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
 
@@ -13,8 +13,6 @@ const state = reactive<Partial<Schema>>({
   email: undefined,
   password: undefined
 })
-
-const showPassword = ref(false)
 
 const toast = useToast()
 
@@ -31,27 +29,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     </template>
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormField label="Email" name="email">
-        <UInput v-model="state.email" placeholder="Email" trailing-icon="i-lucide-at-sign"/>
+        <UInput v-model="state.email" placeholder="Email" type="email" trailing-icon="i-lucide-at-sign"/>
       </UFormField>
 
-      <UFormField label="Password" name="password">
-        <UInput v-model="state.password" placeholder="Password"
-                :type="showPassword ? 'text' : 'password'"
-                :ui="{ trailing: 'pe-1' }">
-          <template #trailing>
-            <UButton
-                color="neutral"
-                variant="link"
-                size="sm"
-                :icon="showPassword ? 'i-lucide-eye-off' : 'i-lucide-eye'"
-                :aria-label="showPassword ? 'Hide password' : 'Show password'"
-                :aria-pressed="showPassword"
-                aria-controls="password"
-                @click="showPassword = !showPassword"
-            />
-          </template>
-        </UInput>
-      </UFormField>
+      <password v-model="state.password" placeholder="Password" label="Password" name="password"/>
 
       <UButton type="submit" trailing-icon="lucide:log-in" size="md" color="primary" variant="solid">Login</UButton>
     </UForm>
