@@ -19,7 +19,7 @@ const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   const split: Split = {
-    id: 0, payer: {id: 0, email: "", username: event.data.username}, user: {id: 0, email: "", username: ""}
+    payer: {email: "", username: event.data.username}, user: {email: "", username: ""}
   }
   toast.add({title: 'Split registered', description: `Split registered for ${event.data.username} with the amount of ${event.data.amount}`, color: 'success'})
   console.log(split)

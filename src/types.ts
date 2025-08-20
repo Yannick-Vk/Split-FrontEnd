@@ -1,22 +1,20 @@
 ﻿export interface User {
-    id: number;
     username: string;
     email: string;
 }
 
-export interface LoginUser {
+export interface UserLogin {
     username: string;
     password: string;
 }
 
-export interface RegisterUser {
+export interface UserRegister {
     email: string;
     username: string;
     password: string;
 }
 
 export interface Split {
-    id: number;
     user: User;
     payer: User;
 }

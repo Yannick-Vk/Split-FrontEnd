@@ -3,7 +3,10 @@ import {reactive} from "vue";
 import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
 
-import type {LoginUser} from '../types.ts'
+import type {UserLogin} from '../types.ts'
+import {useAuthStore} from "../stores/AuthStore.ts";
+
+const authStore = useAuthStore();
 
 const schema = z.object({
   username: z.string('Username/Email cannot be empty').trim().min(1, "Username/Email cannot be empty"),
@@ -19,7 +22,7 @@ const state = reactive<Partial<Schema>>({
 const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  const user: LoginUser = {
+  const user: UserLogin = {
     username: event.data.username,
     password: event.data.password,
   };
@@ -36,7 +39,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     toast.add({title: 'Login failed', description: `Failed to login, reason: ${response.statusText}`, color: 'error'})
     return;
   }
-
+  await authStore.LoginUser(user);
   toast.add({title: 'Success', description: 'Login info sent', color: 'success'})
 }
 </script>

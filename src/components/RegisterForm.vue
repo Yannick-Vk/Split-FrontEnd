@@ -2,7 +2,7 @@
 import {reactive} from "vue";
 import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
-import type {RegisterUser} from "../types.ts";
+import type {UserRegister} from "../types.ts";
 
 const schema = z.object({
   email: z.email('Invalid email'),
@@ -32,7 +32,7 @@ const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   toast.add({title: 'Success', description: 'Registration sent', color: 'success'})
-  const user: RegisterUser = {
+  const user: UserRegister = {
     email: event.data.email, password: event.data.password, username: event.data.username,
   }
   console.log(user)
