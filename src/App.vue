@@ -1,13 +1,10 @@
 <script setup lang="ts">
+import NavBar from "./components/NavBar.vue";
 </script>
 
 <template>
   <UApp>
-    <nav>
-      <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/login">Login</RouterLink>
-      <RouterLink to="/register">Register</RouterLink>
-    </nav>
+    <nav-bar/>
     <main>
       <RouterView />
     </main>
