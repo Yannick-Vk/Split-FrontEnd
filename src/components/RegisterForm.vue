@@ -5,9 +5,9 @@ import type {FormSubmitEvent} from '@nuxt/ui'
 
 const schema = z.object({
   email: z.email('Invalid email'),
-  username: z.string(),
-  password: z.string().min(8, 'Must be at least 8 characters'),
-  confirmPassword: z.string().min(8, 'Must be at least 8 characters'),
+  username: z.string("Username cannot be empty"),
+  password: z.string("Password cannot be empty").min(8, 'Must be at least 8 characters'),
+  confirmPassword: z.string("Confirm password cannot be empty").min(8, 'Must be at least 8 characters'),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords do not match",
   path: ["confirmPassword"],

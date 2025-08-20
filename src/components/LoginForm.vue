@@ -5,7 +5,7 @@ import type {FormSubmitEvent} from '@nuxt/ui'
 
 const schema = z.object({
   email: z.email('Invalid email'),
-  password: z.string().min(8, 'Must be at least 8 characters')
+  password: z.string("Password cannot be empty").min(8, 'Must be at least 8 characters')
 })
 type Schema = z.output<typeof schema>
 
