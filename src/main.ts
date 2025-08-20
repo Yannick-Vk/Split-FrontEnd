@@ -9,6 +9,7 @@ import RegisterForm from "./components/RegisterForm.vue";
 const app = createApp(App);
 
 const router = createRouter({
+    linkActiveClass: 'text-primary',
     routes: [
         {path: '/', component: LoginForm},
         {path: '/login', component: LoginForm},
