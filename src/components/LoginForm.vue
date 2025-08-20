@@ -31,9 +31,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 <template>
   <UCard variant="subtle" id="card">
     <template #header>
-      <h2 class="text-2xl">Login</h2>
+      <h2 class="text-2xl text-center">Login</h2>
     </template>
-    <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+    <UForm :schema="schema" :state="state" class="space-y-4 flex flex-col items-center" @submit="onSubmit">
       <UFormField label="Email" name="email">
         <UButtonGroup>
           <UInput v-model="state.email" placeholder="Email" type="email"/>
