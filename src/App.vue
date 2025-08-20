@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import {} from "./components/RegisterForm.vue";
 </script>
 
 <template>
   <UApp>
+    <nav>
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/login">Login</RouterLink>
+      <RouterLink to="/register">Register</RouterLink>
+    </nav>
     <main>
       <RouterView />
-      <register-form/>
     </main>
   </UApp>
 </template>
