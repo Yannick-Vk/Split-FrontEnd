@@ -8,7 +8,7 @@ export default defineConfig({
     plugins: [vue(), ui({
         ui: {
             colors: {
-                primary: 'blue',
+                primary: 'cyan',
                 neutral: 'zinc'
             }
         }
