@@ -11,7 +11,13 @@ const schema = z.object({
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords do not match",
   path: ["confirmPassword"],
+  when(payload) {
+    return schema
+        .pick({ password: true, confirmPassword: true })
+        .safeParse(payload.value).success;
+  },
 })
+
 type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({
