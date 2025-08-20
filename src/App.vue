@@ -3,9 +3,10 @@ import LoginForm from "./components/LoginForm.vue";
 </script>
 
 <template>
-  <main>
+  <UApp>
+    <RouterView />
     <login-form/>
-  </main>
+  </UApp>
 </template>
 
 <style scoped>

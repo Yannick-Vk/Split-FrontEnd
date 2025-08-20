@@ -1,21 +1,39 @@
 ﻿<script setup lang="ts">
+import {reactive} from "vue";
+import * as z from 'zod'
+import type {FormSubmitEvent} from '@nuxt/ui'
 
-import {ref} from "vue";
+const schema = z.object({
+  email: z.email('Invalid email'),
+  password: z.string().min(8, 'Must be at least 8 characters')
+})
+type Schema = z.output<typeof schema>
 
-const userName = ref("");
-const password = ref('');
+const state = reactive<Partial<Schema>>({
+  email: undefined,
+  password: undefined
+})
+
+const toast = useToast()
+
+async function onSubmit(event: FormSubmitEvent<Schema>) {
+  toast.add({title: 'Success', description: 'The form has been submitted.', color: 'success'})
+  console.log(event.data)
+}
 </script>
 
 <template>
-  <form>
-    <label for="username">Username</label>
-    <input type="text" id="username" v-model="userName">
+  <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+    <UFormField label="Email" name="email">
+      <UInput v-model="state.email" />
+    </UFormField>
 
-    <label for="password">Password</label>
-    <input type="password" id="password" v-model="password">
+    <UFormField label="Password" name="password">
+      <UInput v-model="state.password" type="password" />
+    </UFormField>
 
-    <button type="submit">Login</button>
-  </form>
+    <UButton type="submit" trailing-icon="lucide:log-in" size="md" color="primary" variant="solid">Button</UButton>
+  </UForm>
 </template>
 
 <style scoped>
