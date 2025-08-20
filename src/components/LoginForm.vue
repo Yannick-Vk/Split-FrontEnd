@@ -4,27 +4,42 @@ import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
 
 import type {LoginUser} from '../types.ts'
+import {Login} from "../LoginService.ts";
 
 const schema = z.object({
-  email: z.email('Invalid email'),
+  username: z.string('Username/Email cannot be empty').trim().min(1, "Username/Email cannot be empty"),
   password: z.string("Password cannot be empty").min(8, 'Must be at least 8 characters')
 })
 type Schema = z.output<typeof schema>
 
 const state = reactive<Partial<Schema>>({
-  email: undefined,
+  username: undefined,
   password: undefined
 })
 
 const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  toast.add({title: 'Success', description: 'Login info sent', color: 'success'})
   const user: LoginUser = {
-    email: event.data.email,
+    username: event.data.username,
     password: event.data.password,
   };
   console.log(user)
+  const options = {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    accepts: "application/json",
+    body: JSON.stringify(user)
+  };
+  const response = await fetch('http://localhost:5079/api/v1/auth/login', options)
+  if (!response.ok) {
+    console.error("Login error:", response.statusText)
+    toast.add({title: 'Login failed', description: `Failed to login, reason: ${response.statusText}`, color: 'error'})
+    return;
+  }
+  await Login(user);
+
+  toast.add({title: 'Success', description: 'Login info sent', color: 'success'})
 }
 </script>
 
@@ -34,9 +49,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <h2 class="text-2xl text-center">Login</h2>
     </template>
     <UForm :schema="schema" :state="state" class="space-y-4 flex flex-col items-center" @submit="onSubmit">
-      <UFormField label="Email" name="email">
+      <UFormField label="Username/Email" name="username">
         <UButtonGroup>
-          <UInput v-model="state.email" placeholder="Email" type="email"/>
+          <UInput v-model="state.username" placeholder="Username or Email"/>
           <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:at-sign"/>
         </UButtonGroup>
       </UFormField>
