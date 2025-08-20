@@ -1,6 +1,6 @@
 ﻿export interface User {
     id: number;
-    name: string;
+    username: string;
     email: string;
 }
 
@@ -13,4 +13,10 @@ export interface RegisterUser {
     email: string;
     username: string;
     password: string;
+}
+
+export interface Split {
+    id: number;
+    user: User;
+    payer: User;
 }
