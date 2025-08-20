@@ -32,14 +32,14 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       <h2 class="text-2xl">Split</h2>
     </template>
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-      <UFormField label="Username" name="username">
+      <UFormField label="Username" name="username" class="w-60">
         <UButtonGroup>
+          <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:user-round"/>
           <UInput v-model="state.username" placeholder="Username"/>
-          <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:circle-user-round"/>
         </UButtonGroup>
       </UFormField>
 
-      <UFormField label="Amount" name="amount">
+      <UFormField label="Amount" name="amount" class="w-52">
         <UButtonGroup>
           <u-badge color="neutral" variant="subtle" size="lg"> EUR</u-badge>
           <UInputNumber v-model="state.amount" orientation="vertical" :min="0" :step="0.01"/>
