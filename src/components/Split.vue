@@ -29,20 +29,20 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 <template>
   <UCard variant="subtle" id="card">
     <template #header>
-      <h2 class="text-2xl">Split</h2>
+      <h2 class="text-2xl text-center">Split</h2>
     </template>
-    <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+    <UForm :schema="schema" :state="state" class="space-y-4 flex flex-col items-center" @submit="onSubmit">
       <UFormField label="Username" name="username" class="w-60">
-        <UButtonGroup>
+        <UButtonGroup class="w-full">
           <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:user-round"/>
-          <UInput v-model="state.username" placeholder="Username"/>
+          <UInput v-model="state.username" placeholder="Username" class="w-full"/>
         </UButtonGroup>
       </UFormField>
 
-      <UFormField label="Amount" name="amount" class="w-52">
-        <UButtonGroup>
+      <UFormField label="Amount" name="amount" class="w-60">
+        <UButtonGroup class="w-full">
           <u-badge color="neutral" variant="subtle" size="lg"> EUR</u-badge>
-          <UInputNumber v-model="state.amount" orientation="vertical" :min="0" :step="0.01"/>
+          <UInputNumber v-model="state.amount" orientation="vertical" :min="0" :step="0.01" class="w-full"/>
         </UButtonGroup>
       </UFormField>
 
