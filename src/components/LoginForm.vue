@@ -27,7 +27,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 <template>
   <UCard variant="subtle" id="card">
     <template #header>
-      <h2>Login</h2>
+      <h2 class="text-2xl">Login</h2>
     </template>
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormField label="Email" name="email">
@@ -62,9 +62,5 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 #card {
   max-width: 80rem;
   margin: 5rem auto;
-}
-
-h2 {
-  font-size: 1.8rem;
 }
 </style>
