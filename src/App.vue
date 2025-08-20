@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import LoginForm from "./components/LoginForm.vue";
+import {} from "./components/RegisterForm.vue";
 </script>
 
 <template>
   <UApp>
     <main>
       <RouterView />
-      <login-form/>
+      <register-form/>
     </main>
   </UApp>
 </template>
