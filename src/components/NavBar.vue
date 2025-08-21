@@ -1,7 +1,9 @@
 ﻿<script setup lang="ts">
-import {ref} from 'vue'
+import {useAuthStore} from "../stores/AuthStore.ts";
+import {storeToRefs} from "pinia";
 
-const user = ref('USERNAME')
+const authStore = useAuthStore();
+const { user } = storeToRefs(authStore);
 </script>
 
 <template>
@@ -15,8 +17,8 @@ const user = ref('USERNAME')
         </div>
         <div>
           <UBadge variant="subtle" color="neutral">
-            {{ user }}
-            <UAvatar icon="lucide:user-round" size="lg" class="ml-1"/>
+            {{ user?.username ?? "Unknown User found" }}
+            <UAvatar icon="lucide:user-round" size="lg" class="ml-0"/>
           </UBadge>
         </div>
       </div>
