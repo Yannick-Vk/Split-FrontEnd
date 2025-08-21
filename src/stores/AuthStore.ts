@@ -1,11 +1,11 @@
 ﻿import {defineStore} from "pinia"
-import { mande } from "mande"
-import type {User, UserLogin} from "../types.ts";
+import {mande} from "mande"
+import type {UserWithToken, UserLogin} from "../types.ts";
 
 const api = mande(`${import.meta.env.VITE_API_URL}auth/login`)
 
 interface State {
-    user: User | null,
+    user: UserWithToken | null,
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -17,9 +17,10 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         async LoginUser(user: UserLogin) {
             try {
-                this.user = await api.post<User>(user)
-                console.log(`Pinia> Login Success`, user)
-                localStorage.setItem('user', JSON.stringify({username: user.username}));
+                const jwt: string = await api.post(user);
+                this.user = {username: user.username, jwt}
+                console.log(`Pinia> Login Success`, this.user.username, this.user.jwt);
+                localStorage.setItem('user', JSON.stringify(this.user));
 
             } catch (err: any) {
                 console.error(err)
@@ -34,9 +35,8 @@ export const useAuthStore = defineStore('auth', {
 
 const getLocal = () => {
     const user = localStorage.getItem('user');
-    if (user) {
-        return JSON.parse(user);
-    } else {
-        return null;
+    if (!user) {
+        return null
     }
+    return JSON.parse(user);
 }

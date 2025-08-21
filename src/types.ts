@@ -3,6 +3,11 @@
     email: string;
 }
 
+export interface UserWithToken {
+    username: string;
+    jwt: string;
+}
+
 export interface UserLogin {
     username: string;
     password: string;
