@@ -1,9 +1,4 @@
 ﻿<script setup lang="ts">
-import {useAuthStore} from "../stores/AuthStore.ts";
-import {storeToRefs} from "pinia";
-
-const authStore = useAuthStore();
-const { user } = storeToRefs(authStore);
 </script>
 
 <template>
@@ -16,10 +11,7 @@ const { user } = storeToRefs(authStore);
           <nav-item to="/register" text="Register"/>
         </div>
         <div>
-          <UBadge variant="subtle" color="neutral">
-            {{ user?.username ?? "Unknown User found" }}
-            <UAvatar icon="lucide:user-round" size="lg" class="ml-0"/>
-          </UBadge>
+          <profile/>
         </div>
       </div>
     </UCard>
