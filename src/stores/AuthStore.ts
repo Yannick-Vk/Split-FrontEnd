@@ -2,7 +2,7 @@
 import { mande } from "mande"
 import type {User, UserLogin} from "../types.ts";
 
-const api = mande("http://localhost:5079/api/v1/auth/login")
+const api = mande(`${import.meta.env.VITE_API_URL}auth/login`)
 
 interface State {
     user: User | null,
@@ -11,7 +11,7 @@ interface State {
 export const useAuthStore = defineStore('auth', {
     state: (): State => {
         return {
-            user: null as User | null,
+            user: getLocal()
         }
     },
     actions: {
@@ -19,10 +19,24 @@ export const useAuthStore = defineStore('auth', {
             try {
                 this.user = await api.post<User>(user)
                 console.log(`Pinia> Login Success`, user)
+                localStorage.setItem('user', JSON.stringify({username: user.username}));
 
             } catch (err: any) {
                 console.error(err)
             }
-        }
+        },
+        logout() {
+            this.user = null;
+            localStorage.removeItem('user');
+        },
     }
 })
+
+const getLocal = () => {
+    const user = localStorage.getItem('user');
+    if (user) {
+        return JSON.parse(user);
+    } else {
+        return null;
+    }
+}
