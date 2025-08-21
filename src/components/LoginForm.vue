@@ -26,7 +26,6 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     username: event.data.username,
     password: event.data.password,
   };
-  console.log(user)
   const options = {
     method: "POST",
     headers: {"Content-Type": "application/json"},
