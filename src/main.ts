@@ -7,6 +7,7 @@ import App from './App.vue'
 import LoginForm from "./components/LoginForm.vue";
 import RegisterForm from "./components/RegisterForm.vue";
 import Split from "./components/Split.vue";
+import {useAuthStore} from "./stores/AuthStore.ts";
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -20,6 +21,19 @@ const router = createRouter({
     ],
     history: createWebHistory()
 })
+
+router.beforeEach(async (to) => {
+    // redirect to login page if not logged in and trying to access a restricted page
+    const publicPages = ['/login', '/register'];
+    const authRequired = !publicPages.includes(to.path);
+    const auth = useAuthStore();
+
+    if (authRequired && !auth.user) {
+        return '/login';
+    }
+});
+
+
 app.use(router)
 app.use(pinia)
 app.use(ui)
