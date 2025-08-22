@@ -1,12 +1,17 @@
 ﻿<script setup lang="ts">
 import type {Split, User} from "../../types.ts";
 import {ref} from "vue";
+import type {Ref} from "vue";
 
 const user = ref<User>({username: "Yanick", email: "Yannick@gmail.com"})
-const items: Split[] = [
+const items: Ref<Split[]> = ref([
   { payer: {email: "", username: "Jeff"}, user: user.value, amount: 10.15},
   { payer: {email: "", username: "Jake"}, user: user.value, amount:  5.00},
-];
+]);
+
+async function add(split: Split) {
+  items.value.push(split)
+}
 </script>
 
 <template>
@@ -25,7 +30,7 @@ const items: Split[] = [
         />
       </div>
     </UCard>
-    <SplitForm/>
+    <SplitForm @add="add" />
   </UContainer>
 </template>
 

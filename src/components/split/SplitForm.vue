@@ -3,6 +3,15 @@ import {reactive} from "vue";
 import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
 import type {Split} from "../../types.ts";
+import {useAuthStore} from "../../stores/AuthStore.ts";
+import {storeToRefs} from "pinia";
+
+const authStore = useAuthStore();
+const {user} = storeToRefs(authStore);
+
+const emit = defineEmits<{
+  add: [split: Split],
+}>()
 
 const schema = z.object({
   username: z.string("Username cannot be empty").trim().nonempty("Username cannot be empty"),
@@ -18,12 +27,28 @@ const state = reactive<Partial<Schema>>({
 const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  const split: Split = {
-    payer: {email: "", username: event.data.username}, user: {email: "", username: ""}, amount: 5.32
+  if (!user.value) {
+    console.error("User does not exist");
+    return;
   }
-  toast.add({title: 'SplitForm registered', description: `Split registered for ${event.data.username} with the amount of ${event.data.amount}`, color: 'success'})
-  console.log(split)
+  const split: Split = {
+    payer: {email: "", username: event.data.username},
+    user: {email: user.value.Email, username: user.value.UserName},
+    amount: event.data.amount,
+  }
+  await addItem(split)
 }
+
+async function addItem(split: Split) {
+  toast.add({
+    title: 'Split registered',
+    description: `Split registered for ${split.payer.username} with the amount of ${split.amount}`,
+    color: 'success'
+  })
+  console.log(split)
+  emit('add', split)
+}
+
 </script>
 
 <template>
