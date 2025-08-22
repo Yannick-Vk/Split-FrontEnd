@@ -12,7 +12,7 @@ const isPayer = computed(() => props.user.username === props.item.payer.username
       :color="isPayer ? 'error' : 'success'"
       variant="subtle"
       :description="isPayer? `You owe ${props.item.receiver.username} ${props.item.amount}` : `${props.item.payer.username} owes you ${props.item.amount}`"
-      :icon="isPayer? 'lucide:arrow-down-from-line' : 'lucide:arrow-up-from-line'"
+      :icon="isPayer? 'lucide:arrow-up-from-line' : 'lucide:arrow-down-from-line'"
       class="mb-2"
   />
 </template>
