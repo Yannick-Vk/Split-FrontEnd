@@ -19,14 +19,6 @@ const items: Ref<Split[]> = ref([
   {payer: user, receiver: {email: "Jeff@jeffke.com", username: "Jeff"}, amount: 5.00},
 ]);
 
-const total_owed = computed(() =>
-    items.value.filter((item) => item.payer.username !== user.username).reduce((acc, item) => acc + item.amount, 0)
-);
-
-const total_to_pay = computed(() =>
-    items.value.filter((item) => item.payer.username === user.username).reduce((acc, item) => acc + item.amount, 0)
-);
-
 async function add(split: Split) {
   items.value.push(split)
 }
