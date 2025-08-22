@@ -52,7 +52,7 @@ async function addItem(split: Split) {
 </script>
 
 <template>
-  <UCard variant="subtle" id="card" class="mt-5">
+  <UCard variant="subtle" id="card" class="mt-5 mb-8">
     <template #header>
       <h2 class="text-2xl text-center">Split</h2>
     </template>
