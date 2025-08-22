@@ -10,7 +10,7 @@ const items: Split[] = [
 </script>
 
 <template>
-  <UContainer class="mt-3">
+  <UContainer class="mt-5">
     <UCard variant="subtle">
       <template #header>
         <h2 class="text-2xl text-center">Split Transactions</h2>

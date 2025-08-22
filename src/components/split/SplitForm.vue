@@ -19,7 +19,7 @@ const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   const split: Split = {
-    payer: {email: "", username: event.data.username}, user: {email: "", username: ""}
+    payer: {email: "", username: event.data.username}, user: {email: "", username: ""}, amount: 5.32
   }
   toast.add({title: 'SplitForm registered', description: `Split registered for ${event.data.username} with the amount of ${event.data.amount}`, color: 'success'})
   console.log(split)
@@ -27,7 +27,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <UCard variant="subtle" id="card">
+  <UCard variant="subtle" id="card" class="mt-5">
     <template #header>
       <h2 class="text-2xl text-center">Split</h2>
     </template>
@@ -54,8 +54,4 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </template>
 
 <style scoped>
-#card {
-  max-width: 80rem;
-  margin: 5rem auto;
-}
 </style>

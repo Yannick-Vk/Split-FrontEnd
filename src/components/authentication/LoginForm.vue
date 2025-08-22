@@ -44,28 +44,26 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <UCard variant="subtle" id="card">
-    <template #header>
-      <h2 class="text-2xl text-center">Login</h2>
-    </template>
-    <UForm :schema="schema" :state="state" class="space-y-4 flex flex-col items-center" @submit="onSubmit">
-      <UFormField label="Username/Email" name="username">
-        <UButtonGroup>
-          <UInput v-model="state.username" placeholder="Username or Email"/>
-          <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:at-sign"/>
-        </UButtonGroup>
-      </UFormField>
+  <UContainer class="mt-5">
+    <UCard variant="subtle" id="card">
+      <template #header >
+        <h2 class="text-2xl text-center">Login</h2>
+      </template>
+      <UForm :schema="schema" :state="state" class="space-y-4 flex flex-col items-center" @submit="onSubmit">
+        <UFormField label="Username/Email" name="username">
+          <UButtonGroup>
+            <UInput v-model="state.username" placeholder="Username or Email"/>
+            <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:at-sign"/>
+          </UButtonGroup>
+        </UFormField>
 
-      <password v-model="state.password" placeholder="Password" label="Password" name="password"/>
+        <password v-model="state.password" placeholder="Password" label="Password" name="password"/>
 
-      <UButton type="submit" trailing-icon="lucide:log-in" size="md" color="primary" variant="solid">Login</UButton>
-    </UForm>
-  </UCard>
+        <UButton type="submit" trailing-icon="lucide:log-in" size="md" color="primary" variant="solid">Login</UButton>
+      </UForm>
+    </UCard>
+  </UContainer>
 </template>
 
 <style scoped>
-#card {
-  max-width: 80rem;
-  margin: 5rem auto;
-}
 </style>

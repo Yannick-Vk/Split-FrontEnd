@@ -39,42 +39,40 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   const user: UserRegister = {
     email: event.data.email, password: event.data.password, username: event.data.username,
   }
-  authStore.RegisterUser(user);
+  await authStore.RegisterUser(user);
 }
 </script>
 
 <template>
-  <UCard variant="subtle" id="card">
-    <template #header>
-      <h2 class="text-2xl text-center">Register</h2>
-    </template>
-    <UForm :schema="schema" :state="state" class="space-y-4 flex flex-col items-center" @submit="onSubmit">
-      <UFormField label="Email" name="email">
-        <UButtonGroup>
-          <UInput v-model="state.email" placeholder="Email" type="email"/>
-          <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:at-sign"/>
-        </UButtonGroup>
-      </UFormField>
+ <UContainer class="mt-5">
+   <UCard variant="subtle" id="card">
+     <template #header>
+       <h2 class="text-2xl text-center">Register</h2>
+     </template>
+     <UForm :schema="schema" :state="state" class="space-y-4 flex flex-col items-center" @submit="onSubmit">
+       <UFormField label="Email" name="email">
+         <UButtonGroup>
+           <UInput v-model="state.email" placeholder="Email" type="email"/>
+           <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:at-sign"/>
+         </UButtonGroup>
+       </UFormField>
 
-      <UFormField label="Username" name="username">
-        <UButtonGroup>
-          <UInput v-model="state.username" placeholder="Username"/>
-          <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:user-round"/>
-        </UButtonGroup>
-      </UFormField>
+       <UFormField label="Username" name="username">
+         <UButtonGroup>
+           <UInput v-model="state.username" placeholder="Username"/>
+           <UBadge color="neutral" variant="subtle" size="lg" icon="lucide:user-round"/>
+         </UButtonGroup>
+       </UFormField>
 
-      <password v-model="state.password" placeholder="Password" label="Password" name="password"/>
-      <password v-model="state.confirmPassword" placeholder="Confirm password" label="Confirm Password"
-                name="confirmPassword"/>
+       <password v-model="state.password" placeholder="Password" label="Password" name="password"/>
+       <password v-model="state.confirmPassword" placeholder="Confirm password" label="Confirm Password"
+                 name="confirmPassword"/>
 
-      <UButton type="submit" trailing-icon="lucide:log-in" size="md" color="primary" variant="solid">Register</UButton>
-    </UForm>
-  </UCard>
+       <UButton type="submit" trailing-icon="lucide:log-in" size="md" color="primary" variant="solid">Register</UButton>
+     </UForm>
+   </UCard>
+ </UContainer>
 </template>
 
 <style scoped>
-#card {
-  max-width: 80rem;
-  margin: 5rem auto;
-}
 </style>
