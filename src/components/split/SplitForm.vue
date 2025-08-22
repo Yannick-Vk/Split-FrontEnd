@@ -2,7 +2,7 @@
 import {reactive} from "vue";
 import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
-import type {Split} from "../types.ts";
+import type {Split} from "../../types.ts";
 
 const schema = z.object({
   username: z.string("Username cannot be empty").trim().nonempty("Username cannot be empty"),
@@ -21,7 +21,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   const split: Split = {
     payer: {email: "", username: event.data.username}, user: {email: "", username: ""}
   }
-  toast.add({title: 'Split registered', description: `Split registered for ${event.data.username} with the amount of ${event.data.amount}`, color: 'success'})
+  toast.add({title: 'SplitForm registered', description: `Split registered for ${event.data.username} with the amount of ${event.data.amount}`, color: 'success'})
   console.log(split)
 }
 </script>

@@ -4,9 +4,9 @@ import { createPinia } from 'pinia'
 import ui from '@nuxt/ui/vue-plugin'
 import './assets/main.css'
 import App from './App.vue'
-import LoginForm from "./components/LoginForm.vue";
-import RegisterForm from "./components/RegisterForm.vue";
-import Split from "./components/Split.vue";
+import LoginForm from "./components/authentication/LoginForm.vue";
+import RegisterForm from "./components/authentication/RegisterForm.vue";
+import SplitForm from "./components/split/SplitForm.vue";
 import {useAuthStore} from "./stores/AuthStore.ts";
 
 const app = createApp(App);
@@ -15,7 +15,7 @@ const pinia = createPinia();
 const router = createRouter({
     linkActiveClass: 'text-primary',
     routes: [
-        {path: '/', component: Split},
+        {path: '/', component: SplitForm},
         {path: '/login', component: LoginForm},
         {path: '/register', component: RegisterForm},
     ],

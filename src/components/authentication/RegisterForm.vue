@@ -2,9 +2,9 @@
 import {reactive} from "vue";
 import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
-import type {UserRegister} from "../types.ts";
+import type {UserRegister} from "../../types.ts";
 
-import {useAuthStore} from "../stores/AuthStore.ts";
+import {useAuthStore} from "../../stores/AuthStore.ts";
 
 const authStore = useAuthStore();
 
