@@ -5,7 +5,7 @@ import type {Ref} from "vue";
 import {useAuthStore} from "../../stores/AuthStore.ts";
 import {storeToRefs} from "pinia";
 import {h, resolveComponent} from 'vue'
-import type {TableColumn} from '@nuxt/ui'
+import type {TableColumn, TableRow} from '@nuxt/ui'
 
 const UBadge = resolveComponent('UBadge')
 const UIcon = resolveComponent('UIcon')
@@ -58,6 +58,30 @@ const columns: TableColumn<Split>[] = [
   {
     accessorKey: 'amount',
     header: 'amount',
+    footer: ({column}) => {
+      const total_owed = column
+          .getFacetedRowModel()
+          .rows.filter((row) => (row.getValue('payer') as User).username !== user.username).reduce(
+              (acc: number, row: TableRow<Split>) => acc + Number.parseFloat(row.getValue('amount')),
+              0
+          );
+      const total_to_pay = column
+          .getFacetedRowModel()
+          .rows.filter((row) => (row.getValue('payer') as User).username === user.username).reduce(
+              (acc: number, row: TableRow<Split>) => acc + Number.parseFloat(row.getValue('amount')),
+              0
+          );
+
+      const formatted = (amount: number) => new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'EUR'
+      }).format(amount)
+
+      return h('div', {class: 'flex flex-col font-medium text-right'}, [
+        h('span', `Total owed: ${formatted(total_owed)}`),
+        h('span', `Total left to pay: ${formatted(total_to_pay)}`)
+      ])
+    },
     cell: ({row}) => {
       const amount = Number.parseFloat(row.getValue('amount'))
 
@@ -87,13 +111,6 @@ const sorting = ref([
       </template>
 
       <UTable v-model:sorting="sorting" :data="items" :columns class="flex-1"/>
-
-      <template #footer>
-        <div class="flex flex-col">
-          <span>Total owed: {{ total_owed }}</span>
-          <span>Total to pay: {{ total_to_pay }}</span>
-        </div>
-      </template>
     </UCard>
     <SplitForm @add="add" :user="user"/>
   </UContainer>
