@@ -4,6 +4,10 @@ import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
 import type {UserRegister} from "../types.ts";
 
+import {useAuthStore} from "../stores/AuthStore.ts";
+
+const authStore = useAuthStore();
+
 const schema = z.object({
   email: z.email('Invalid email'),
   username: z.string("Username cannot be empty"),
@@ -35,7 +39,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   const user: UserRegister = {
     email: event.data.email, password: event.data.password, username: event.data.username,
   }
-  console.log(user)
+  authStore.RegisterUser(user);
 }
 </script>
 

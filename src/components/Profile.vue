@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import {ref} from 'vue'
+import {computed} from 'vue'
 import {useAuthStore} from "../stores/AuthStore.ts";
 import {storeToRefs} from "pinia";
 
@@ -10,29 +10,24 @@ import type {DropdownMenuItem} from '@nuxt/ui'
 
 const toast = useToast();
 
-const items = ref<DropdownMenuItem[][]>([
-  [
-    {
-      label: user?.value?.username,
-      icon: 'i-lucide-user',
-      type: 'label'
+const items = computed(() => [{
+  label: user?.value?.Email,
+  icon: 'i-lucide-at-sign',
+  type: 'label'
+},
+  {
+    label: 'Logout',
+    icon: 'i-lucide-log-out',
+    onSelect(_: Event) {
+      logout();
     }
-  ],
-  [
-    {
-      label: 'Logout',
-      icon: 'i-lucide-log-out',
-      onSelect(_: Event) {
-        logout();
-      }
-    }
-  ]
-])
+  },
+] satisfies DropdownMenuItem[])
 
 
 const logout = () => {
   toast.add({title: 'Logout success', description: 'Logged out', color: 'success'})
-  authStore.logout()
+  authStore.Logout()
 }
 </script>
 
@@ -40,12 +35,17 @@ const logout = () => {
   <UDropdownMenu
       v-if="user"
       :items="items"
+      :content="{
+        align: 'end',
+        side: 'bottom',
+        sideOffset: 8
+      }"
       :ui="{
       content: 'w-48'
     }"
   >
-    <UButton v-if="user?.username" icon="lucide:user-round" color="neutral" variant="outline">
-      {{ user.username }}
+    <UButton icon="lucide:user-round" color="neutral" variant="outline">
+      {{ user.UserName }}
     </UButton>
   </UDropdownMenu>
 </template>

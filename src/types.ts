@@ -4,8 +4,9 @@
 }
 
 export interface UserWithToken {
-    username: string;
-    jwt: string;
+    UserName: string;
+    Email: string;
+    Jwt: string;
 }
 
 export interface UserLogin {
