@@ -111,13 +111,14 @@ const logout = () => {
 
 <template>
   <UDropdownMenu
+      v-if="user"
       :items="items"
       :ui="{
       content: 'w-48'
     }"
   >
     <UButton v-if="user?.username" icon="lucide:user-round" color="neutral" variant="outline">
-      {{ user?.username }}
+      {{ user.username }}
     </UButton>
   </UDropdownMenu>
 </template>
