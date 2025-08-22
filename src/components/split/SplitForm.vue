@@ -2,13 +2,9 @@
 import {reactive} from "vue";
 import * as z from 'zod'
 import type {FormSubmitEvent} from '@nuxt/ui'
-import type {Split} from "../../types.ts";
-import {useAuthStore} from "../../stores/AuthStore.ts";
-import {storeToRefs} from "pinia";
+import type {Split, User} from "../../types.ts";
 
-const authStore = useAuthStore();
-const {user} = storeToRefs(authStore);
-
+const props = defineProps<{user: User}>();
 const emit = defineEmits<{
   add: [split: Split],
 }>()
@@ -27,13 +23,9 @@ const state = reactive<Partial<Schema>>({
 const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  if (!user.value) {
-    console.error("User does not exist");
-    return;
-  }
   const split: Split = {
     payer: {email: "", username: event.data.username},
-    receiver: {email: user.value.Email, username: user.value.UserName},
+    receiver: {email: props.user.email, username: props.user.username},
     amount: event.data.amount,
   }
   await addItem(split)
