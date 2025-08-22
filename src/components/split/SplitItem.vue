@@ -1,16 +1,18 @@
 ﻿<script setup lang="ts">
-import type {Split} from "../../types.ts";
+import type {Split, User} from "../../types.ts";
+import {computed} from "vue";
 
-defineProps<{item: Split}>();
+const props = defineProps<{ item: Split, user: User }>();
 
+const isPayer = computed(() => props.user.username === props.item.payer.username);
 </script>
 
 <template>
   <UAlert
-      color="neutral"
+      :color="isPayer ? 'error' : 'success'"
       variant="subtle"
-      :description="`${item.payer.username} owes you ${item.amount}`"
-      icon="lucide:arrow-up-from-line"
+      :description="isPayer? `You owe ${props.item.receiver.username} ${props.item.amount}` : `${props.item.payer.username} owes you ${props.item.amount}`"
+      :icon="isPayer? 'lucide:arrow-down-from-line' : 'lucide:arrow-up-from-line'"
       class="mb-2"
   />
 </template>

@@ -33,7 +33,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
   }
   const split: Split = {
     payer: {email: "", username: event.data.username},
-    user: {email: user.value.Email, username: user.value.UserName},
+    receiver: {email: user.value.Email, username: user.value.UserName},
     amount: event.data.amount,
   }
   await addItem(split)

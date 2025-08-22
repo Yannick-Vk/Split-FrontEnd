@@ -21,7 +21,7 @@ export interface UserRegister {
 }
 
 export interface Split {
-    user: User;
+    receiver: User;
     payer: User;
     amount: number;
 }
