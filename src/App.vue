@@ -12,8 +12,4 @@ import NavBar from "./components/nav/NavBar.vue";
 </template>
 
 <style scoped>
-main {
-  max-width: 1024px;
-  margin: 0 auto;
-}
 </style>
