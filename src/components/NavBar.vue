@@ -1,5 +1,5 @@
 ﻿<script setup lang="ts">
-import Profile from "./Profile.vue";
+import NavProfile from "./NavProfile.vue";
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import Profile from "./Profile.vue";
           <nav-item to="/register" text="Register"/>
         </div>
         <div>
-          <profile/>
+          <nav-profile/>
         </div>
       </div>
     </UCard>
