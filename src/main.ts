@@ -6,7 +6,7 @@ import './assets/main.css'
 import App from './App.vue'
 import LoginForm from "./components/authentication/LoginForm.vue";
 import RegisterForm from "./components/authentication/RegisterForm.vue";
-import SplitForm from "./components/split/SplitForm.vue";
+import Split from "./components/split/Split.vue";
 import {useAuthStore} from "./stores/AuthStore.ts";
 
 const app = createApp(App);
@@ -15,7 +15,7 @@ const pinia = createPinia();
 const router = createRouter({
     linkActiveClass: 'text-primary',
     routes: [
-        {path: '/', component: SplitForm},
+        {path: '/', component: Split},
         {path: '/login', component: LoginForm},
         {path: '/register', component: RegisterForm},
     ],
