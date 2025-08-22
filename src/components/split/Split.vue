@@ -1,8 +1,8 @@
 ﻿<script setup lang="ts">
 import type {Split, User} from "../../types.ts";
 import {ref} from "vue";
-import type {Ref} from "vue";
 import {useAuthStore} from "../../stores/AuthStore.ts";
+import {useSplitStore} from "../../stores/SplitStore.ts";
 import {storeToRefs} from "pinia";
 import {h, resolveComponent} from 'vue'
 import type {TableColumn, TableRow} from '@nuxt/ui'
@@ -14,15 +14,12 @@ const authStore = useAuthStore();
 const userWithToken = storeToRefs(authStore);
 const user: User = {email: userWithToken.user.value?.Email ?? "", username: userWithToken.user.value?.UserName ?? ""}
 
-const items: Ref<Split[]> = ref([
-  {payer: {email: "", username: "Jeff"}, receiver: user, amount: 10.15},
-  {payer: user, receiver: {email: "Jeff@jeffke.com", username: "Jeff"}, amount: 5.00},
-]);
+const splitStore = useSplitStore();
 
+const items = storeToRefs(splitStore);
 async function add(split: Split) {
-  items.value.push(split)
+  items.splits.value.push(split)
 }
-
 
 const columns: TableColumn<Split>[] = [
   {
@@ -93,6 +90,8 @@ const sorting = ref([
     desc: false
   }
 ])
+
+splitStore.getSplits(user.username)
 </script>
 
 <template>
@@ -102,7 +101,7 @@ const sorting = ref([
         <h2 class="text-2xl text-center">Split Transactions</h2>
       </template>
 
-      <UTable v-model:sorting="sorting" :data="items" :columns class="flex-1"/>
+      <UTable v-model:sorting="sorting" :data="items.splits.value" :columns class="flex-1"/>
     </UCard>
     <SplitForm @add="add" :user="user"/>
   </UContainer>
