@@ -1,6 +1,6 @@
 ﻿<script setup lang="ts">
 import type {Split, User} from "../../types.ts";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import type {Ref} from "vue";
 import SplitItem from "./SplitItem.vue";
 import {useAuthStore} from "../../stores/AuthStore.ts";
@@ -15,6 +15,14 @@ const items: Ref<Split[]> = ref([
   { payer: user, receiver: {email: "Jeff@jeffke.com", username: "Jeff"}, amount:  5.00},
 ]);
 
+const total_owed = computed(() =>
+  items.value.filter((item) => item.payer.username !== user.username).reduce((acc, item) => acc + item.amount, 0)
+);
+
+const total_to_pay = computed(() =>
+    items.value.filter((item) => item.payer.username === user.username).reduce((acc, item) => acc + item.amount, 0)
+);
+
 async function add(split: Split) {
   items.value.push(split)
 }
@@ -28,6 +36,12 @@ async function add(split: Split) {
       </template>
       <template v-for="item in items">
         <split-item :item="item" :user="user" />
+      </template>
+      <template #footer>
+        <div class="flex flex-col">
+          <span>Total owed: {{ total_owed }}</span>
+          <span>Total to pay: {{total_to_pay}}</span>
+        </div>
       </template>
     </UCard>
     <SplitForm @add="add" :user="user" />
