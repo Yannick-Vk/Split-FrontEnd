@@ -26,7 +26,7 @@ const toast = useToast()
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
 
-  const split: Split = event.data.payer? {
+  const split: Split = event.data.payer ? {
     receiver: {email: "", username: event.data.username},
     payer: {email: props.user.email, username: props.user.username},
     amount: event.data.amount,

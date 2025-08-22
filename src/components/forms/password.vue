@@ -1,5 +1,6 @@
 ﻿<script setup lang="ts">
 import {ref} from "vue";
+
 defineProps({label: String, name: String, placeholder: String})
 const model = defineModel<string>()
 

@@ -46,7 +46,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 <template>
   <UContainer class="mt-5">
     <UCard variant="subtle" id="card">
-      <template #header >
+      <template #header>
         <h2 class="text-2xl text-center">Login</h2>
       </template>
       <UForm :schema="schema" :state="state" class="space-y-4 flex flex-col items-center" @submit="onSubmit">

@@ -1,6 +1,6 @@
 ﻿<script setup lang="ts">
 import type {Split, User} from "../../types.ts";
-import {computed, ref} from "vue";
+import {ref} from "vue";
 import type {Ref} from "vue";
 import {useAuthStore} from "../../stores/AuthStore.ts";
 import {storeToRefs} from "pinia";
